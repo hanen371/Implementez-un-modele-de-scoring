@@ -10,3 +10,8 @@ Directory structure
 ![image](https://user-images.githubusercontent.com/96344546/159187947-e9aa0d17-7702-420c-b895-7d9371f2b3fe.png)
 
 
+You can find 2 notebooks here:
+
+EDA contains dataset discovery and exploratory analyzes
+
+Modeling contains feature engineering and an approach in modeling including the management of class imbalance, the creation of a business metric, the optimization of the score and model_interpretation (a local and global analysis of the selected model).
