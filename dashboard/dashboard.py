@@ -116,7 +116,7 @@ html_card_footer3 = """
 ### Block 0 #########################################################################################
 
 # URL de l'API
-api_adress = "https://hanene-22-ben.herokuapp.com/"
+api_adress = "https://hanen-22-benbrahim.herokuapp.com/"
 data =  pd.read_csv(os.path.join(abs_path,'data', 'sampled_data (2).csv'))
 
 # # List of customer IDs
