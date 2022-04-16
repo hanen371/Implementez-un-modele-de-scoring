@@ -173,7 +173,7 @@ temp_lst = df_sans_id.columns.to_list()
 
 cat_features = df_sans_id.select_dtypes(exclude=[np.number]).columns.to_list()
 num_features = df_sans_id.select_dtypes(include=[np.number]).columns.to_list()
-features_importances = get_features_importances()
+# features_importances = get_features_importances()
 
 
 with st.expander("Mission du dashboard"):
@@ -488,19 +488,19 @@ if st.checkbox("Afficher l'interprétation des résultats"):
   st.markdown(html_br, unsafe_allow_html=True)
   if st.checkbox("Afficher Importance de Variables"):
     with st.container():
-      col1, col2, col3 = st.columns([1,32,1])
+      col1, col3 = st.columns([1,32])
       with col1:
         st.write("")
-      with col2:
-        # features_importances
-        features_importances_df = features_importances.reset_index()
-        features_importances_df.columns = ['Feature', 'Top Features Importance']
-        fig = px.bar(features_importances_df,
-                    x='Top Features Importance',
-                    y='Feature',
-                    )
-        fig.update_layout(height=900)
-        st.plotly_chart(fig)
+#       with col2:
+#         # features_importances
+#         features_importances_df = features_importances.reset_index()
+#         features_importances_df.columns = ['Feature', 'Top Features Importance']
+#         fig = px.bar(features_importances_df,
+#                     x='Top Features Importance',
+#                     y='Feature',
+#                     )
+#         fig.update_layout(height=900)
+#         st.plotly_chart(fig)
       with col3:
         st.write("")
 
