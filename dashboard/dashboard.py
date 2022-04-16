@@ -136,13 +136,13 @@ def get_score(id):
     thresh = content['thresh']
     return score, proba, thresh
 
-# Les informations descriptives relatives à un client
-@st.cache
-def get_information_descriptive(id):
-    response = requests.get(api_adress + "get_information_descriptive/?id=" + str(id))
-    content = json.loads(response.content)
-    data_client = pd.read_json(content['df'])
-    return data_client
+# # Les informations descriptives relatives à un client
+# @st.cache
+# def get_information_descriptive(id):
+#     response = requests.get(api_adress + "get_information_descriptive/?id=" + str(id))
+#     content = json.loads(response.content)
+#     data_client = pd.read_json(content['df'])
+#     return data_client
 
 # Les informations descriptives relatives à l'ensemble de clients 
 
