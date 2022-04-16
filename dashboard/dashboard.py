@@ -485,14 +485,6 @@ html_card_header9="""
 </div>
 """
 
-html_card_header10="""
-<div class="card">
-  <div class="card-body" style="border-radius: 10px 10px 0px 0px; background: #9C9B9B; padding-top: 5px; width: 450px;
-  height: 50px;">
-    <h4 class="card-title" style="background-color:#9C9B9B; color:#F2EBEB; font-family:Georgia; text-align: center; padding: 10px 0;">Analyse SHAP</h4>
-  </div>
-</div>
-"""
 
 if st.checkbox("Afficher l'interprétation des résultats"):
   ### Block 7 #########################################################################################
