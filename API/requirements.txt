@@ -1,0 +1,6 @@
+pandas==1.4.2
+fastapi==0.75.1
+uvicorn==0.17.6
+lightgbm==3.2.1
+path==16.4.0
+shap==0.40.0
