@@ -157,7 +157,7 @@ def get_data():
 def get_features_importances():
     response = requests.get(api_adress + "get_feature_importance/")
     content = json.loads(response.content)
-    features_importances = pd.read_json(content['features_importances'], typ='series')
+    features_importances = pd.read_json(content['features_importances'])
     return features_importances
 
 
