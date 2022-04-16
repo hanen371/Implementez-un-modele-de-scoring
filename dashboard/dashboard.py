@@ -141,7 +141,7 @@ def get_score(id):
 def get_information_descriptive(id):
     response = requests.get(api_adress + "get_information_descriptive/?id=" + str(id))
     content = json.loads(response.content)
-    data_client = pd.read_json(content['df'])
+    data_client = pd.read_json(content['X'])
     return data_client
 
 # Les informations descriptives relatives à l'ensemble de clients 
