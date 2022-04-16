@@ -130,7 +130,7 @@ def get_id_list():
 @st.cache
 def get_score(id):
     response = requests.get(api_adress + "get_score/?id=" + str(id))
-    content = json.loads(response.content.decode('utf-8'))
+    content = json.loads(response.content)
     score = content['score']
     proba = content['proba']
     thresh = content['thresh']
