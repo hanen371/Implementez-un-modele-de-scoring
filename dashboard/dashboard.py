@@ -29,7 +29,7 @@ st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon=""
 
 
 with st.container():
-  col1, col2, col3, col4, col5 = st.columns([1,26,1,5])
+  col1, col2, col3, col4 = st.columns([1,26,1,5])
   with col1:
     st.write("")
   with col2:
