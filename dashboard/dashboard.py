@@ -136,13 +136,13 @@ def get_score(id):
     thresh = content['thresh']
     return score, proba, thresh
 
-# # Les informations descriptives relatives à un client
-# @st.cache
-# def get_information_descriptive(id):
-#     response = requests.get(api_adress + "get_information_descriptive/?id=" + str(id))
-#     content = json.loads(response.content)
-#     data_client = pd.read_json(content['df'])
-#     return data_client
+# Les informations descriptives relatives à un client
+@st.cache
+def get_information_descriptive(id):
+    response = requests.get(api_adress + "get_information_descriptive/?id=" + str(id))
+    content = json.loads(response.content)
+    data_client = pd.read_json(content['df'])
+    return data_client
 
 # Les informations descriptives relatives à l'ensemble de clients 
 
@@ -153,13 +153,13 @@ def get_data():
     X_tr_proc = pd.read_json(content['X'])
     return X_tr_proc
 
-# Liste de feature importance 
-@st.cache
-def get_features_importances():
-    response = requests.get(api_adress + "get_feature_importance/")
-    content = json.loads(response.content)
-    features_importances = pd.read_json(content['features_importances'])
-    return features_importances
+# # Liste de feature importance 
+# @st.cache
+# def get_features_importances():
+#     response = requests.get(api_adress + "get_feature_importance/")
+#     content = json.loads(response.content)
+#     features_importances = pd.read_json(content['features_importances'])
+#     return features_importances
 
 
 
