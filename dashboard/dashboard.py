@@ -141,8 +141,7 @@ def get_information_descriptive(id):
     response = requests.get(api_adress + "get_information_descriptive/?id=" + str(id))
     content = json.loads(response.content)
     data_client = pd.read_json(content['df'])
-    #data_cust_proc = pd.Series(content['data_proc']).rename(select_sk_id)
-    return data_client #, data_cust_proc
+    return data_client
 
 # Les informations descriptives relatives à l'ensemble de clients 
 
