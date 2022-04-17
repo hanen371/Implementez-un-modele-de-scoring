@@ -116,7 +116,7 @@ html_card_footer3="""
 #    l’ensemble des clients ou à un groupe de clients similaires.
 
 # URL de l'API
-api_adress = "https://pacific-earth-67320.herokuapp.com/"
+api_adress = "https://hanen-p7-oc-ben.herokuapp.com/"
 
 # Liste des IDs des clients
 @st.cache
