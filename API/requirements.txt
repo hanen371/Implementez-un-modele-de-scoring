@@ -1,6 +1,7 @@
-pandas==1.4.2
-fastapi==0.75.1
-uvicorn==0.17.6
+Flask==2.0.3
+requests==2.25.1
+gunicorn==20.1.0
 lightgbm==3.2.1
-path==16.4.0
 shap==0.40.0
+cloudpickle==1.6.0
+pandas==1.2.4
