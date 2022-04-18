@@ -10,6 +10,7 @@ import plotly.graph_objects as go
 import streamlit as st
 import streamlit.components.v1 as components
 import lightgbm as lgb
+import shap
 
 ########################################
 abs_path = os.path.dirname(os.path.realpath(__file__))
@@ -152,14 +153,36 @@ def get_data():
     content = json.loads(response.content)
     X_tr_proc = pd.read_json(content['X'])
     return X_tr_proc
+   
+# Liste de feature importance 
+@st.cache
+def get_features_importances():
+    response = requests.get(api_adress + "get_feature_importance/")
+    content = json.loads(response.content)
+    features_importances = pd.read_json(content['features_importances'], typ='series')
+    return features_importances
 
-# # Liste de feature importance 
-# @st.cache
-# def get_features_importances():
-#     response = requests.get(api_adress + "get_feature_importance/")
-#     content = json.loads(response.content)
-#     features_importances = pd.read_json(content['features_importances'])
-#     return features_importances
+# Shap values
+@st.cache
+def get_shap_values(X_shap, y_shap):
+      # Prepare SHAP Values 
+    model_clf = lgb.LGBMClassifier().fit(X_shap, y_shap)
+    explainer = shap.TreeExplainer(model_clf)
+    shap_values = explainer.shap_values(X_shap)
+    expected_value = explainer.expected_value
+    # response = requests.get(api_adress + "get_shap_values/")
+    # content = json.loads(response.content)
+    # shap_values = np.array(content['shap_values'])
+    # expected_value = content['expected_value_json']
+    return (shap_values, expected_value)
+
+# Plot shap with streamlit 
+def st_shap(plot, height=None):
+    shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
+    components.html(shap_html, height=height)
+
+### Block 0 #########################################################################################
+
 
 
 
