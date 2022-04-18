@@ -15,6 +15,10 @@ model = model_obj
 thresh = 0.5
 X = pd.read_csv(os.path.join(abs_path, 'data', 'sampled_data (2).csv'))
 
+df = pd.read_csv(os.path.join(abs_path,'data', 'df_red.csv'))
+y_train_df = df.pop('TARGET')
+X = pd.read_csv(os.path.join(abs_path, 'data', 'X_valid_red.csv'))
+y_train = pd.read_csv(os.path.join(abs_path, 'data', 'y_valid_red.csv'))
 ###############################################################
 # initiate Flask app
 app = Flask(__name__)
