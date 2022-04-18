@@ -13,12 +13,11 @@ path = os.path.join(abs_path, 'model', 'light_gbm_f2.sav')
 model_obj = pickle.load(open(path, 'rb'))
 model = model_obj
 thresh = 0.5
-X = pd.read_csv(os.path.join(abs_path, 'data', 'sampled_data (2).csv'))
 
-df = pd.read_csv(os.path.join(abs_path,'data', 'df_red.csv'))
-y_train_df = df.pop('TARGET')
-X = pd.read_csv(os.path.join(abs_path, 'data', 'X_valid_red.csv'))
-y_train = pd.read_csv(os.path.join(abs_path, 'data', 'y_valid_red.csv'))
+df = pd.read_csv(os.path.join(abs_path,'data', 'sampled_data (2).csv'))
+y_train_df = df.pop('identifiant')
+X = pd.read_csv(os.path.join(abs_path, 'data', 'X_train.csv'))
+y_train = pd.read_csv(os.path.join(abs_path, 'data', 'y_train.csv'))
 ###############################################################
 # initiate Flask app
 app = Flask(__name__)
@@ -70,8 +69,10 @@ def get_information_descriptive():
 @app.route('/get_data/')
 def get_data():
     df_json = X.to_json()
+    y_train_json = y_train.to_json()
     return jsonify({'status': 'ok',
-    				'X': df_json}), 200
+    				'X': df_json,
+    				'y_train': y_train_json}), 200
 
 
 # Get model feature importance
