@@ -185,8 +185,8 @@ df, y_train = get_data()
 # y_shap = y_train.drop(columns=['SK_ID_CURR']).copy(deep=True)
 
 shap_values = pickle.load(open("shap_values.sav (1)", 'rb')
-                          
-df_sans_id = df.drop(columns=['SK_ID_CURR'])
+df_sans_id = pd.read_csv(os.path.join(abs_path, 'X_train (1).csv'))                    
+# df_sans_id = df.drop(columns=['SK_ID_CURR'])
 temp_lst = df_sans_id.columns.to_list()
 features_importances = get_features_importances()
 # shap_values, expected_value = get_shap_values(X_shap, y_shap)
