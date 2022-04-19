@@ -134,7 +134,7 @@ html_card_footer3="""
 </div>
 """
 ## Block 0 #########################################################################################
-Spécifications du dashboard
+# Spécifications du dashboard
 1- Permettre de visualiser le score et l’interprétation de ce score pour chaque 
    client de façon intelligible pour une personne non experte en data science.
 2- Permettre de visualiser des informations descriptives relatives à un client
