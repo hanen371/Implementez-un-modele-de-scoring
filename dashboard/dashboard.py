@@ -181,10 +181,11 @@ def st_shap(plot, height=None):
 ### Block 1#########################################################################################
 liste_id = get_id_list()
 df, y_train = get_data() 
-X_shap = df.drop(columns=['SK_ID_CURR']).copy(deep=True)
-y_shap = y_train.drop(columns=['SK_ID_CURR']).copy(deep=True)
+# X_shap = df.drop(columns=['SK_ID_CURR']).copy(deep=True)
+# y_shap = y_train.drop(columns=['SK_ID_CURR']).copy(deep=True)
 
 shap_values = pickle.load(open("shap_values.sav (1)", 'rb')
+                          
 df_sans_id = df.drop(columns=['SK_ID_CURR'])
 temp_lst = df_sans_id.columns.to_list()
 features_importances = get_features_importances()
@@ -386,7 +387,7 @@ if st.checkbox("Afficher les informations descriptives de l'ensemble des clients
       st.write("")
     with col2:
       st.markdown(html_card_header6, unsafe_allow_html=True)
-      variable = st.selectbox ("Quel attribut voulez-vous analyser?", 
+      variable = st.selectbox("Quel attribut voulez-vous analyser?", 
                                                 temp_lst,
                                                 )
       fig = px.histogram(df,
