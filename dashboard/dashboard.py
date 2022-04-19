@@ -183,11 +183,19 @@ liste_id = get_id_list()
 df, y_train = get_data() 
 # X_shap = df.drop(columns=['SK_ID_CURR']).copy(deep=True)
 # y_shap = y_train.drop(columns=['SK_ID_CURR']).copy(deep=True)
+# Load
+abs_path = os.path.dirname(os.path.realpath(__file__))
+path = os.path.join(abs_path, 'model', 'light_gbm_f2.sav')
+# with open(path, 'rb') as file:
+model_obj = pickle.load(open(path, 'rb'))
+model = model_obj
+thresh = 0.5
 
-shap_values = pickle.load(open("shap_values.sav (1)", 'rb')
-df_sans_id = pd.read_csv(os.path.join(abs_path, 'data', 'X_train (1).csv'))                    
-# df_sans_id = df.drop(columns=['SK_ID_CURR'])
+df_sans_id = df.drop(columns=['SK_ID_CURR'])
 temp_lst = df_sans_id.columns.to_list()
+shap_values = pickle.load(open("shap_values.sav (1)", 'rb')
+# df_sans_id = pd.read_csv(os.path.join(abs_path, 'data', 'X_train (1).csv'))                    
+# temp_lst = df_sans_id.columns.to_list()
 features_importances = get_features_importances()
 # shap_values, expected_value = get_shap_values(X_shap, y_shap)
 # shap_values = get_shap_values()
