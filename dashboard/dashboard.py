@@ -11,7 +11,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 import streamlit.components.v1 as components
-import xgboost
 
 ########################################
 abs_path = os.path.dirname(os.path.realpath(__file__))
@@ -19,13 +18,13 @@ html_header="""
 <head>
 <title>PHomeCredit</title>
 <meta charset="utf-8">
-<meta name="keywords" content="home credit risk, dashboard, Khalil Henchi">
+<meta name="keywords" content="home credit risk, dashboard, Hanen BEN BRAHIM">
 <meta name="description" content="Home Credit Risk Dashboard">
-<meta name="author" content="Khalil HENCHI">
+<meta name="author" content="Hanen Ben Brahim">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <h1 style="font-size:300%; color:#838383; font-family:Georgia"> Home Credit Default Risk Dashboard <br>
- <h2 style="font-size:200%; "color:#BFBCBC; font-family:Georgia"> Khalil Henchi </h2> <br></h1>
+ <h2 style="font-size:200%; "color:#BFBCBC; font-family:Georgia"> Hanen Ben Brahim </h2> <br></h1>
 """
 
 st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon="", layout="wide")
@@ -120,7 +119,7 @@ html_card_footer3="""
 #    l’ensemble des clients ou à un groupe de clients similaires.
 
 # URL de l'API
-api_adress = "https://khalil-henchi-oc-p7-api.herokuapp.com/"
+api_adress = "https://hanen-p7-22-ben.herokuapp.com/"
 # api_adress = "http://127.0.0.1:5000/"
 # Liste des IDs des clients
 @st.cache
@@ -145,9 +144,9 @@ def get_score(id):
 def get_information_descriptive(id):
     response = requests.get(api_adress + "get_information_descriptive/?id=" + str(id))
     content = json.loads(response.content)
-    data_client = pd.read_json(content['df'])
+    data_client = pd.read_json(content['X'])
     #data_cust_proc = pd.Series(content['data_proc']).rename(select_sk_id)
-    return data_client #, data_cust_proc
+    return data_client
 
 # Les informations descriptives relatives à l'ensemble de clients 
 
@@ -155,21 +154,10 @@ def get_information_descriptive(id):
 def get_data():
     response = requests.get(api_adress + "get_data/")
     content = json.loads(response.content)
-    X_tr_proc = pd.read_json(content['X'])
+    X_tr_proc = pd.read_json(content['df'])
     y_tr = pd.read_json(content['y_train'])
     return X_tr_proc, y_tr
 
-# Les informations descriptives relatives auc clients voisins 
-
-@st.cache
-def get_neighbors(id, n_neighbors):
-    response = requests.get(url=api_adress + "get_neighbors",
-                            params={'id': str(id),
-                                    'n_neighbors':str(n_neighbors)})
-    content = json.loads(response.content)
-    X_neigh = pd.read_json(content['X_neigh'])
-    y_neigh = pd.read_json(content['y_neigh'])
-    return X_neigh, y_neigh
 
 
 # Liste de feature importance 
@@ -180,19 +168,6 @@ def get_features_importances():
     features_importances = pd.read_json(content['features_importances'], typ='series')
     return features_importances
 
-# Shap values
-@st.cache
-def get_shap_values(X_shap, y_shap):
-      # Prepare SHAP Values 
-    model_clf = xgboost.XGBClassifier().fit(X_shap, y_shap)
-    explainer = shap.TreeExplainer(model_clf)
-    shap_values = explainer.shap_values(X_shap)
-    expected_value = explainer.expected_value
-    # response = requests.get(api_adress + "get_shap_values/")
-    # content = json.loads(response.content)
-    # shap_values = np.array(content['shap_values'])
-    # expected_value = content['expected_value_json']
-    return (shap_values, expected_value)
 
 # Plot shap with streamlit 
 def st_shap(plot, height=None):
@@ -205,17 +180,17 @@ def st_shap(plot, height=None):
 
 ### Block 1#########################################################################################
 liste_id = get_id_list()
-data, y_train = get_data() 
+df, y_train = get_data() 
 X_shap = data.drop(columns=['SK_ID_CURR']).copy(deep=True)
 y_shap = y_train.drop(columns=['SK_ID_CURR']).copy(deep=True)
 
-df_sans_id = data.drop(columns=['SK_ID_CURR'])
+df_sans_id = df.drop(columns=['SK_ID_CURR'])
 temp_lst = df_sans_id.columns.to_list()
 
 cat_features = df_sans_id.select_dtypes(exclude=[np.number]).columns.to_list()
 num_features = df_sans_id.select_dtypes(include=[np.number]).columns.to_list()
 features_importances = get_features_importances()
-shap_values, expected_value = get_shap_values(X_shap, y_shap)
+# shap_values, expected_value = get_shap_values(X_shap, y_shap)
 # shap_values = get_shap_values()
 
 
@@ -357,19 +332,10 @@ if st.checkbox("Afficher les informations descriptives de l'ensemble des clients
 
       with col2:
           # Données des clients existant dans le jeu 
-            variable = st.selectbox ("Quel jeu voulez-vous analyser?", 
-                                              ['Ensemble de clients', 'Clients Similaire'],
-                                              )
+            variable = st.checkbox("Customer's data")
+           
+            st.dataframe(data.set_index('SK_ID_CURR'))
             
-            if variable == 'Ensemble de clients' :#st.checkbox("Customer's data"):
-                # st.markdown(html_card_header15, unsafe_allow_html=True)
-                st.dataframe(data.set_index('SK_ID_CURR'))
-            else:
-                n_neighbors = st.slider('Nombre de clients similaire', min_value=2, max_value=10, value=5, step=1)
-                X_neigh, y_neigh = get_neighbors(selected_id, n_neighbors=n_neighbors)
-                data_neigh = data[data['SK_ID_CURR'].isin(X_neigh['SK_ID_CURR'].to_list())]  
-                data = data_neigh.copy(deep=True)
-                st.dataframe(data_neigh.set_index('SK_ID_CURR'))
 
       with col3:
           st.write("")
@@ -426,7 +392,7 @@ if st.checkbox("Afficher les informations descriptives de l'ensemble des clients
       variable = st.selectbox ("Quel attribut voulez-vous analyser?", 
                                                 temp_lst,
                                                 )
-      fig = px.histogram(data,
+      fig = px.histogram(df,
                         x=variable,
                         title= 'Distribution de la variable : ' + variable,
                         )
@@ -442,9 +408,9 @@ if st.checkbox("Afficher les informations descriptives de l'ensemble des clients
     ### Radar plot ###
     with col4:
       st.markdown(html_card_header7, unsafe_allow_html=True)
-      columns_lst = data.columns.to_list()
+      columns_lst = df.columns.to_list()
       categories = st.multiselect("Sélectionnez les variables à comparer : ", 
-                                  options=data.columns.to_list(),
+                                  options=df.columns.to_list(),
                                   default= columns_lst[:5],
                                   )
       # Choisir les 5 premieères variables sélectionées 
@@ -469,11 +435,11 @@ if st.checkbox("Afficher les informations descriptives de l'ensemble des clients
             name='Profil client'
       ))
       
-      var_data_0 = data[categories[0]].mean()
-      var_data_1 = data[categories[1]].mean()
-      var_data_2 = data[categories[2]].mean()
-      var_data_3 = data[categories[3]].mean()
-      var_data_4 = data[categories[4]].mean()
+      var_data_0 = df[categories[0]].mean()
+      var_data_1 = df[categories[1]].mean()
+      var_data_2 = df[categories[2]].mean()
+      var_data_3 = df[categories[3]].mean()
+      var_data_4 = df[categories[4]].mean()
       fig.add_trace(go.Scatterpolar(
             r=[var_data_0,
               var_data_1,
@@ -619,7 +585,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
                   figsize=(6, 5),
                   )        
           shap.summary_plot(shap_values,
-                            data.columns,
+                            df.columns,
                             plot_type ='bar',
                             show = False, 
                             )
@@ -636,7 +602,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
               figsize=(6, 5),
               ) 
           shap.summary_plot(shap_values,
-                            data.columns,
+                            df.columns,
                             show = False, 
                             )
           axes = plt.gcf() 
@@ -647,11 +613,11 @@ if st.checkbox("Afficher l'interprétation des résultats"):
                     # pad_inches=0,
                     )
         if plot_type =='Force Plot': 
-          index = data.loc[data['SK_ID_CURR']==selected_id,:].index[0]       
+          index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]       
           # visualize the client prediction's explanation 
           st_shap(shap.force_plot(expected_value, 
                                   shap_values[index,:],
-                                  data.drop(columns=['SK_ID_CURR']).iloc[index,:],
+                                  df.drop(columns=['SK_ID_CURR']).iloc[index,:],
                                   )
                                   )
           # visualize the training set predictions
