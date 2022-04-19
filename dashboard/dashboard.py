@@ -334,7 +334,7 @@ if st.checkbox("Afficher les informations descriptives de l'ensemble des clients
           # Données des clients existant dans le jeu 
             variable = st.checkbox("Customer's data")
            
-            st.dataframe(data.set_index('SK_ID_CURR'))
+            st.dataframe(df.set_index('SK_ID_CURR'))
             
 
       with col3:
