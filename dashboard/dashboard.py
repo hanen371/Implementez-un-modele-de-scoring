@@ -13,26 +13,29 @@ import streamlit as st
 import streamlit.components.v1 as components
 import lightgbm as lgb
 
-# # let’s add a bit more descriptive text to our UI
-# st.write("""
-# # Welcome on this dashboard !
-# # Context
-# The company "Ready to distribute" wishes to set up a "credit scoring" tool to calculate the \
-# probability that a customer will repay his credit, then classify the request as granted or \
-# refused credit
-# The label is a binary variable, 0 (will repay the loan on time), 1 (will have difficulty repaying \
-# the loan)
-# # Objectives
-#  1. Create a classification model that will automatically predict the likelihood that a customer \
-#   can or cannot repay their loan.
-#  2. Build an interactive dashboard for customer relationship managers to interpret the predictions\
-#   made by the model, and improve the customer knowledge of customer relationship managers.
+
+st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon="", layout="wide")
+
+# let’s add a bit more descriptive text to our UI
+st.write("""
+# Welcome on this dashboard !
+# Context
+The company "Ready to distribute" wishes to set up a "credit scoring" tool to calculate the \
+probability that a customer will repay his credit, then classify the request as granted or \
+refused credit
+The label is a binary variable, 0 (will repay the loan on time), 1 (will have difficulty repaying \
+the loan)
+# Objectives
+ 1. Create a classification model that will automatically predict the likelihood that a customer \
+  can or cannot repay their loan.
+ 2. Build an interactive dashboard for customer relationship managers to interpret the predictions\
+  made by the model, and improve the customer knowledge of customer relationship managers.
   
-# # How to use it ?
-# To predict the score of a specific client, you have to choose the client ID.
-# To better understand the score, you can compare some informations of the client versus the values of all the others clients.
-# The multiselect bow allows you to chose which features to compare.
-# """)
+# How to use it ?
+To predict the score of a specific client, you have to choose the client ID.
+To better understand the score, you can compare some informations of the client versus the values of all the others clients.
+The multiselect bow allows you to chose which features to compare.
+""")
 
 
 ########################################
@@ -50,7 +53,7 @@ html_header="""
  <h2 style="font-size:200%; "color:#BFBCBC; font-family:Georgia"> Khalil Henchi </h2> <br></h1>
 """
 
-st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon="", layout="wide")
+
 
 
 with st.container():
@@ -668,6 +671,6 @@ html_line="""
   margin-right: auto;
   border-style: inset;
   border-width: 1.5px;">
-<p style="color:Gainsboro; text-align: right;">By: khalilhenchi@gmail.com</p>
+<p style="color:Gainsboro; text-align: right;">By: hanene_benbrahim@yahoo.com</p>
 """
 st.markdown(html_line, unsafe_allow_html=True)
