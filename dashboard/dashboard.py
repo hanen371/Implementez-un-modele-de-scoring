@@ -14,6 +14,7 @@ import streamlit.components.v1 as components
 import lightgbm as lgb
 
 
+########################################
 st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon="", layout="wide")
 
 # let’s add a bit more descriptive text to our UI
@@ -38,7 +39,6 @@ The multiselect bow allows you to chose which features to compare.
 """)
 
 
-########################################
 abs_path = os.path.dirname(os.path.realpath(__file__))
 html_header="""
 <head>
@@ -52,8 +52,6 @@ html_header="""
 <h1 style="font-size:300%; color:#838383; font-family:Georgia"> Home Credit Default Risk Dashboard <br>
  <h2 style="font-size:200%; "color:#BFBCBC; font-family:Georgia"> Khalil Henchi </h2> <br></h1>
 """
-
-
 
 
 with st.container():
