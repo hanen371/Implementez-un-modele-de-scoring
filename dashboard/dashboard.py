@@ -181,7 +181,7 @@ def st_shap(plot, height=None):
 ### Block 1#########################################################################################
 liste_id = get_id_list()
 df, y_train = get_data() 
-X_shap = data.drop(columns=['SK_ID_CURR']).copy(deep=True)
+X_shap = df.drop(columns=['SK_ID_CURR']).copy(deep=True)
 y_shap = y_train.drop(columns=['SK_ID_CURR']).copy(deep=True)
 
 df_sans_id = df.drop(columns=['SK_ID_CURR'])
