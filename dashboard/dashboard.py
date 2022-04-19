@@ -120,7 +120,6 @@ html_card_footer3="""
 
 # URL de l'API
 api_adress = "https://hanen-p7-22-ben.herokuapp.com/"
-# api_adress = "http://127.0.0.1:5000/"
 # Liste des IDs des clients
 @st.cache
 def get_id_list():
@@ -568,52 +567,57 @@ if st.checkbox("Afficher l'interprétation des résultats"):
         st.write("")
       with col2:
         # Shap Values 
-        plot_type = st.selectbox('Vuillez choisir le plot SHAP à afficher', 
-                                   options=['Force Plot', 'Bar Plot', 'Dot Plot' ],)
+          index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]   
+          shap.initjs()                
+          shap.force_plot(shap_values[int(index)],df)                
+                          
+                          
+#         plot_type = st.selectbox('Vuillez choisir le plot SHAP à afficher', 
+#                                    options=['Force Plot', 'Bar Plot', 'Dot Plot' ],)
 
-        if plot_type =='Bar Plot': 
-          fig, axes = plt.subplots(nrows=1,
-                  ncols=1,
-                  figsize=(6, 5),
-                  )        
-          shap.summary_plot(shap_values,
-                            df.columns,
-                            plot_type ='bar',
-                            show = False, 
-                            )
-          axes = plt.gcf()
+#         if plot_type =='Bar Plot': 
+#           fig, axes = plt.subplots(nrows=1,
+#                   ncols=1,
+#                   figsize=(6, 5),
+#                   )        
+#           shap.summary_plot(shap_values,
+#                             df.columns,
+#                             plot_type ='bar',
+#                             show = False, 
+#                             )
+#           axes = plt.gcf()
 
-          st.pyplot(fig, 
-                    bbox_inches='tight', 
-                    # dpi=300,
-                    # pad_inches=0,
-                    )
-        if plot_type =='Dot Plot':  
-          fig, axes = plt.subplots(nrows=1,
-              ncols=1,
-              figsize=(6, 5),
-              ) 
-          shap.summary_plot(shap_values,
-                            df.columns,
-                            show = False, 
-                            )
-          axes = plt.gcf() 
+#           st.pyplot(fig, 
+#                     bbox_inches='tight', 
+#                     # dpi=300,
+#                     # pad_inches=0,
+#                     )
+#         if plot_type =='Dot Plot':  
+#           fig, axes = plt.subplots(nrows=1,
+#               ncols=1,
+#               figsize=(6, 5),
+#               ) 
+#           shap.summary_plot(shap_values,
+#                             df.columns,
+#                             show = False, 
+#                             )
+#           axes = plt.gcf() 
 
-          st.pyplot(fig, 
-                    bbox_inches='tight', 
-                    # dpi=300,
-                    # pad_inches=0,
-                    )
-        if plot_type =='Force Plot': 
-          index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]       
-          # visualize the client prediction's explanation 
-          st_shap(shap.force_plot(expected_value, 
-                                  shap_values[index,:],
-                                  df.drop(columns=['SK_ID_CURR']).iloc[index,:],
-                                  )
-                                  )
-          # visualize the training set predictions
-          # st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
+#           st.pyplot(fig, 
+#                     bbox_inches='tight', 
+#                     # dpi=300,
+#                     # pad_inches=0,
+#                     )
+#         if plot_type =='Force Plot': 
+#           index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]       
+#           # visualize the client prediction's explanation 
+#           st_shap(shap.force_plot(expected_value, 
+#                                   shap_values[index,:],
+#                                   df.drop(columns=['SK_ID_CURR']).iloc[index,:],
+#                                   )
+#                                   )
+#           # visualize the training set predictions
+#           # st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
                     
       with col3:
         st.write("")
@@ -635,6 +639,6 @@ html_line="""
   margin-right: auto;
   border-style: inset;
   border-width: 1.5px;">
-<p style="color:Gainsboro; text-align: right;">By: khalilhenchi@gmail.com</p>
+<p style="color:Gainsboro; text-align: right;">By: hanene_benbrahim@yahoo.com</p>
 """
 st.markdown(html_line, unsafe_allow_html=True)
