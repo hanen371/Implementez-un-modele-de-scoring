@@ -184,6 +184,7 @@ df, y_train = get_data()
 X_shap = df.drop(columns=['SK_ID_CURR']).copy(deep=True)
 y_shap = y_train.drop(columns=['SK_ID_CURR']).copy(deep=True)
 
+shap_values = pickle.load(open("shap_values.sav (1)", 'rb')
 df_sans_id = df.drop(columns=['SK_ID_CURR'])
 temp_lst = df_sans_id.columns.to_list()
 
@@ -333,7 +334,6 @@ if st.checkbox("Afficher les informations descriptives de l'ensemble des clients
       with col2:
           # Données des clients existant dans le jeu 
             variable = st.checkbox("Customer's data")
-           
             st.dataframe(df.set_index('SK_ID_CURR'))
             
 
