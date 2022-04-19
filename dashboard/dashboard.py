@@ -135,12 +135,12 @@ html_card_footer3="""
 """
 ## Block 0 #########################################################################################
 # Spécifications du dashboard
-1- Permettre de visualiser le score et l’interprétation de ce score pour chaque 
-   client de façon intelligible pour une personne non experte en data science.
-2- Permettre de visualiser des informations descriptives relatives à un client
-   (via un système de filtre).
-3- Permettre de comparer les informations descriptives relatives à un client à 
-   l’ensemble des clients ou à un groupe de clients similaires.
+# 1- Permettre de visualiser le score et l’interprétation de ce score pour chaque 
+#    client de façon intelligible pour une personne non experte en data science.
+# 2- Permettre de visualiser des informations descriptives relatives à un client
+#    (via un système de filtre).
+# 3- Permettre de comparer les informations descriptives relatives à un client à 
+#    l’ensemble des clients ou à un groupe de clients similaires.
 
 # URL de l'API
 api_adress = "https://hanen-p7-22-ben.herokuapp.com/"
