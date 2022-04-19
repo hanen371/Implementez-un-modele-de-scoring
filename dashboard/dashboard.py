@@ -185,7 +185,7 @@ X_shap = df.drop(columns=['SK_ID_CURR']).copy(deep=True)
 y_shap = y_train.drop(columns=['SK_ID_CURR']).copy(deep=True)
 
 shap_values = pickle.load(open("shap_values.sav (1)", 'rb')
-df_sans_id = df.drop(columns=['SK_ID_CURR'])
+df_sans_id = X.drop(columns=['SK_ID_CURR'])
 temp_lst = df_sans_id.columns.to_list()
 
 cat_features = df_sans_id.select_dtypes(exclude=[np.number]).columns.to_list()
