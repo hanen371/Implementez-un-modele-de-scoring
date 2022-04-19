@@ -185,11 +185,9 @@ X_shap = df.drop(columns=['SK_ID_CURR']).copy(deep=True)
 y_shap = y_train.drop(columns=['SK_ID_CURR']).copy(deep=True)
 
 shap_values = pickle.load(open("shap_values.sav (1)", 'rb')
-df_sans_id = X.drop(columns=['SK_ID_CURR'])
-temp_lst = df_sans_id.columns.to_list()
+# df_sans_id = X.drop(columns=['SK_ID_CURR'])
+temp_lst = df.columns.to_list()
 
-cat_features = df_sans_id.select_dtypes(exclude=[np.number]).columns.to_list()
-num_features = df_sans_id.select_dtypes(include=[np.number]).columns.to_list()
 features_importances = get_features_importances()
 # shap_values, expected_value = get_shap_values(X_shap, y_shap)
 # shap_values = get_shap_values()
