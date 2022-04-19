@@ -1,3 +1,5 @@
+st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon="", layout="wide")
+
 # Import of modules
 import os
 import numpy as np
@@ -15,7 +17,7 @@ import lightgbm as lgb
 
 
 ########################################
-st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon="", layout="wide")
+
 
 # let’s add a bit more descriptive text to our UI
 st.write("""
