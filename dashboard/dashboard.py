@@ -9,14 +9,36 @@ import shap
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+import streamlit.components.v1 as components
 
 ########################################
+# let’s add a bit more descriptive text to our UI
+st.write("""
+# Welcome on this dashboard !
+# Context
+The company "Ready to distribute" wishes to set up a "credit scoring" tool to calculate the \
+probability that a customer will repay his credit, then classify the request as granted or \
+refused credit
+The label is a binary variable, 0 (will repay the loan on time), 1 (will have difficulty repaying \
+the loan)
+# Objectives
+ 1. Create a classification model that will automatically predict the likelihood that a customer \
+  can or cannot repay their loan.
+ 2. Build an interactive dashboard for customer relationship managers to interpret the predictions\
+  made by the model, and improve the customer knowledge of customer relationship managers.
+
+# How to use it ?
+To predict the score of a specific client, you have to choose the client ID.
+To better understand the score, you can compare some informations of the client versus the values of all the others clients.
+The multiselect bow allows you to chose which features to compare.
+""")
+########################################
 abs_path = os.path.dirname(os.path.realpath(__file__))
-html_header="""
+html_header = """
 <head>
 <title>PHomeCredit</title>
 <meta charset="utf-8">
-<meta name="keywords" content="home credit risk, dashboard, Hanen BEN BRAHIM">
+<meta name="keywords" content="home credit risk, dashboard, Hanen Ben Brahim">
 <meta name="description" content="Home Credit Risk Dashboard">
 <meta name="author" content="Hanen Ben Brahim">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -354,15 +376,6 @@ if st.checkbox("Afficher les informations descriptives de l'ensemble des clients
   </div>
   """
 
-  html_card_header7="""
-  <div class="card">
-    <div class="card-body" style="border-radius: 10px 10px 0px 0px; background: #9C9B9B; padding-top: 5px; width: 550px;
-    height: 50px;">
-      <h4 class="card-title" style="background-color:#9C9B9B; color:#F2EBEB; font-family:Georgia; text-align: center; padding: 10px 0;">Comparaison avec profils de clients similaires</h4>
-    </div>
-  </div>
-  """
-
   html_card_footer7="""
   <div class="card">
     <div class="card-body" style="border-radius: 0px 0px 10px 10px; background: #9C9B9B; padding-top: 1rem;; width: 250px;
@@ -566,56 +579,54 @@ if st.checkbox("Afficher l'interprétation des résultats"):
       with col2:
         # Shap Values 
           index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]   
-          shap.initjs()                
-          shap.force_plot(shap_values[int(index)],df)                
+#           shap.initjs()                
+#           shap.force_plot(shap_values[int(index)],df)                
                           
                           
-#         plot_type = st.selectbox('Vuillez choisir le plot SHAP à afficher', 
-#                                    options=['Force Plot', 'Bar Plot', 'Dot Plot' ],)
+        plot_type = st.selectbox('Vuillez choisir le plot SHAP à afficher', 
+                                   options=['Force Plot', 'Bar Plot', 'Dot Plot' ],)
 
-#         if plot_type =='Bar Plot': 
-#           fig, axes = plt.subplots(nrows=1,
-#                   ncols=1,
-#                   figsize=(6, 5),
-#                   )        
-#           shap.summary_plot(shap_values,
-#                             df.columns,
-#                             plot_type ='bar',
-#                             show = False, 
-#                             )
-#           axes = plt.gcf()
+        if plot_type =='Bar Plot': 
+          fig, axes = plt.subplots(nrows=1,
+                  ncols=1,
+                  figsize=(6, 5),
+                  )        
+          shap.summary_plot(shap_values,
+                            df.columns,
+                            plot_type ='bar',
+                            show = False, 
+                            )
+          axes = plt.gcf()
 
-#           st.pyplot(fig, 
-#                     bbox_inches='tight', 
-#                     # dpi=300,
-#                     # pad_inches=0,
-#                     )
-#         if plot_type =='Dot Plot':  
-#           fig, axes = plt.subplots(nrows=1,
-#               ncols=1,
-#               figsize=(6, 5),
-#               ) 
-#           shap.summary_plot(shap_values,
-#                             df.columns,
-#                             show = False, 
-#                             )
-#           axes = plt.gcf() 
+          st.pyplot(fig, 
+                    bbox_inches='tight', 
+                    # dpi=300,
+                    # pad_inches=0,
+                    )
+        if plot_type =='Dot Plot':  
+          fig, axes = plt.subplots(nrows=1,
+              ncols=1,
+              figsize=(6, 5),
+              ) 
+          shap.summary_plot(shap_values,
+                            df.columns,
+                            show = False, 
+                            )
+          axes = plt.gcf() 
 
-#           st.pyplot(fig, 
-#                     bbox_inches='tight', 
-#                     # dpi=300,
-#                     # pad_inches=0,
-#                     )
-#         if plot_type =='Force Plot': 
-#           index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]       
-#           # visualize the client prediction's explanation 
-#           st_shap(shap.force_plot(expected_value, 
-#                                   shap_values[index,:],
-#                                   df.drop(columns=['SK_ID_CURR']).iloc[index,:],
-#                                   )
-#                                   )
-#           # visualize the training set predictions
-#           # st_shap(shap.force_plot(explainer.expected_value, shap_values, X), 400)
+          st.pyplot(fig, 
+                    bbox_inches='tight', 
+                    # dpi=300,
+                    # pad_inches=0,
+                    )
+        if plot_type =='Force Plot': 
+          index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]       
+          # visualize the client prediction's explanation 
+          st_shap(shap.force_plot(expected_value, 
+                                  shap_values[index,:],
+                                  df.drop(columns=['SK_ID_CURR']).iloc[index,:],
+                                  )
+                                  )
                     
       with col3:
         st.write("")
