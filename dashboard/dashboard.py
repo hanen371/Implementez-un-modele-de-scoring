@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 import streamlit as st
 import streamlit.components.v1 as components
 import pickle
-
+import matplotlib.pyplot as plt
 ########################################
 
 st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon="", layout="wide")
