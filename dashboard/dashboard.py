@@ -591,7 +591,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
 #           shap.initjs()                
                    
         plot_type = st.selectbox('Veuillez choisir le plot SHAP à afficher', 
-                                   options=['Bar Plot', 'Dot Plot','Summary_plot2' ])
+                                   options=['Bar Plot', 'Dot Plot'])
 
         if plot_type =='Bar Plot': 
           fig, axes = plt.subplots(nrows=1,
@@ -626,8 +626,13 @@ if st.checkbox("Afficher l'interprétation des résultats"):
                     # dpi=300,
                     # pad_inches=0,
                     )
-       if plot_type =='Summary_plot2':
-        shap.summary_plot(shap_values[index], features=test_features, max_display=10)
+        if plot_type =='Force Plot': 
+          index = df.loc[data['SK_ID_CURR']==selected_id,:].index[0]       
+          # visualize the client prediction's explanation 
+          st_shap(shap.force_plot(values(int[index]),
+                                  df.drop(columns=['SK_ID_CURR']).iloc[index,:],
+                                  )
+                                  )
                     
       with col3:
         st.write("")
