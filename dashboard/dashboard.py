@@ -627,8 +627,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
                     # pad_inches=0,
                     )
        if plot_type =='Summary_plot2':
-        
-         shap.summary_plot(shap_values[index], features=test_features, max_display=10)
+        shap.summary_plot(shap_values[index], features=test_features, max_display=10)
                     
       with col3:
         st.write("")
