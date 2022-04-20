@@ -204,7 +204,7 @@ features_importances = get_features_importances()
 abs_path = os.path.dirname(os.path.realpath(__file__))
 df_sans_id = df.drop(columns=['SK_ID_CURR'])
 temp_lst = df_sans_id.columns.to_list()  
-path = os.path.join(abs_path, 'shap_values.sav (1)')
+path = os.path.join(abs_path, 'data', 'shap_values.sav (1)')
 # with open(path, 'rb') as file:
 values = pickle.load(open(path, 'rb'))
 
