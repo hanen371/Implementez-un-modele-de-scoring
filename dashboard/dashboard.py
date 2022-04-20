@@ -591,7 +591,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
 #           shap.initjs()                
                    
         plot_type = st.selectbox('Veuillez choisir le plot SHAP à afficher', 
-                                   options=['Bar Plot', 'Dot Plot'])
+                                   options=['Bar Plot', 'Force Plot', 'Dot Plot'])
 
         if plot_type =='Bar Plot': 
           fig, axes = plt.subplots(nrows=1,
