@@ -627,12 +627,22 @@ if st.checkbox("Afficher l'interprétation des résultats"):
                     # pad_inches=0,
                     )
         if plot_type =='Force Plot': 
+         fig, axes = plt.subplots(nrows=1,
+              ncols=1,
+              figsize=(6, 5),
+              ) 
           index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]       
           # visualize the client prediction's explanation 
-          st_shap(shap.force_plot(values(int[index]),
+          shap.force_plot(values(int[index]),
                                   df.drop(columns=['SK_ID_CURR']).iloc[index,:],
                                   )
-                                  )
+          axes = plt.gcf() 
+
+          st.pyplot(fig, 
+                    bbox_inches='tight', 
+                    # dpi=300,
+                    # pad_inches=0,
+                    )                       
                     
       with col3:
         st.write("")
