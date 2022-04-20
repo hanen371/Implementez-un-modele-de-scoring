@@ -12,6 +12,8 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 ########################################
+
+st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon="", layout="wide")
 # let’s add a bit more descriptive text to our UI
 st.write("""
 # Welcome on this dashboard !
@@ -46,9 +48,6 @@ html_header = """
 <h1 style="font-size:300%; color:#838383; font-family:Georgia"> Home Credit Default Risk Dashboard <br>
  <h2 style="font-size:200%; "color:#BFBCBC; font-family:Georgia"> Hanen Ben Brahim </h2> <br></h1>
 """
-
-st.set_page_config(page_title="Home Credit Default Risk Dashboard", page_icon="", layout="wide")
-
 
 with st.container():
   col1, col2, col3, col4, col5 = st.columns([1,26,1,5,1])
