@@ -203,8 +203,10 @@ df, y_train = get_data()
 features_importances = get_features_importances()
 abs_path = os.path.dirname(os.path.realpath(__file__))
 df_sans_id = df.drop(columns=['SK_ID_CURR'])
-temp_lst = df_sans_id.columns.to_list()
-shap_values = pickle.load(open("shap_values.sav (1)", 'rb')
+temp_lst = df_sans_id.columns.to_list()  
+path = os.path.join(abs_path, 'shap_values.sav (1)')
+# with open(path, 'rb') as file:
+values = pickle.load(open(path, 'rb'))
 
 with st.expander("Mission du dashboard"):
   st.write("Dashboard pour visualiser les informations sur un client demandant un \
@@ -591,7 +593,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
                   ncols=1,
                   figsize=(6, 5),
                   )        
-          shap.summary_plot(shap_values,
+          shap.summary_plot(values,
                             df.columns,
                             plot_type ='bar',
                             show = False, 
@@ -608,7 +610,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
               ncols=1,
               figsize=(6, 5),
               ) 
-          shap.summary_plot(shap_values,
+          shap.summary_plot(values,
                             df.columns,
                             show = False, 
                             )
@@ -623,7 +625,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
           index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]       
           # visualize the client prediction's explanation 
           st_shap(shap.force_plot(expected_value, 
-                                  shap_values[index,:],
+                                  values[index,:],
                                   df.drop(columns=['SK_ID_CURR']).iloc[index,:],
                                   )
                                   )
