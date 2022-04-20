@@ -377,7 +377,14 @@ if st.checkbox("Afficher les informations descriptives de l'ensemble des clients
     </div>
   </div>
   """
-
+  html_card_header7="""
+  <div class="card">
+    <div class="card-body" style="border-radius: 10px 10px 0px 0px; background: #9C9B9B; padding-top: 5px; width: 550px;
+    height: 50px;">
+      <h4 class="card-title" style="background-color:#9C9B9B; color:#F2EBEB; font-family:Georgia; text-align: center; padding: 10px 0;">Comparaison avec profils de clients similaires</h4>
+    </div>
+  </div>
+  """
   html_card_footer7="""
   <div class="card">
     <div class="card-body" style="border-radius: 0px 0px 10px 10px; background: #9C9B9B; padding-top: 1rem;; width: 250px;
