@@ -630,7 +630,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
           index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]       
           # visualize the client prediction's explanation 
           st_shap(shap.force_plot( 
-                                  values[index,:],
+                                  values(int[selected_id]),
                                   df['SK_ID_CURR']==selected_id,
                                   )
                                   )
