@@ -631,7 +631,7 @@ if st.checkbox("Afficher l'interprétation des résultats"):
           # visualize the client prediction's explanation 
           st_shap(shap.force_plot( 
                                   values[index,:],
-                                  df.drop(columns=['SK_ID_CURR']).iloc[index,:],
+                                  df['SK_ID_CURR']==selected_id,
                                   )
                                   )
                     
