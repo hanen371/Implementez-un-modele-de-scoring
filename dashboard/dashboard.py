@@ -580,13 +580,11 @@ if st.checkbox("Afficher l'interprétation des résultats"):
         st.write("")
       with col2:
         # Shap Values 
-          index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]   
+        index = df.loc[df['SK_ID_CURR']==selected_id,:].index[0]   
 #           shap.initjs()                
-#           shap.force_plot(shap_values[int(index)],df)                
-                          
-                          
-        plot_type = st.selectbox('Vuillez choisir le plot SHAP à afficher', 
-                                   options=['Force Plot', 'Bar Plot', 'Dot Plot' ],)
+                   
+        plot_type = st.selectbox('Veuillez choisir le plot SHAP à afficher', 
+                                   options=['Force Plot', 'Bar Plot', 'Dot Plot' ])
 
         if plot_type =='Bar Plot': 
           fig, axes = plt.subplots(nrows=1,
